@@ -4,8 +4,13 @@ import { COLORS, RADIUS, SHADOW } from "../../constants/colors.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useLang } from "../../context/LangContext.jsx";
 import { getAllServices } from "../../services/api.js";
+import { SOCKET_BASE } from "../../constants/api.js";
 import { LangToggle } from "../../components/index.jsx";
-const API_BASE_IMG = "http://10.64.243.237:5000";// change to match your backend
+
+const getImageUri = (image) => {
+  if (!image) return null;
+  return image.startsWith("http") ? image : `${SOCKET_BASE}${image}`;
+};
 
 export default function HomeScreen({ navigation }) {
   const { user } = useAuth();
@@ -33,7 +38,7 @@ export default function HomeScreen({ navigation }) {
     ));
   }, [search, services]);
 
-  const imgUri = (s) => s.image ? `${API_BASE_IMG}${s.image}` : null;
+  const imgUri = (s) => getImageUri(s.image);
 
   return (
     <ScrollView
