@@ -13,7 +13,7 @@ export default function Layout() {
   const { admin, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => { logout(); navigate("/login"); };
+  const handleLogout = () => { logout(); navigate("/admin/login"); };
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
@@ -99,3 +99,4 @@ export default function Layout() {
     </div>
   );
 }
+
