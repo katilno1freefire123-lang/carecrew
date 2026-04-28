@@ -2,13 +2,18 @@ import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from "rea
 import { COLORS, RADIUS, SHADOW } from "../../constants/colors.js";
 import { useLang } from "../../context/LangContext.jsx";
 import { Button } from "../../components/index.jsx";
-const API_BASE_IMG = "http://10.64.243.237:5000";
+import { SOCKET_BASE } from "../../constants/api.js";
+
+const getImageUri = (image) => {
+  if (!image) return null;
+  return image.startsWith("http") ? image : `${SOCKET_BASE}${image}`;
+};
 
 export default function ServiceDetailScreen({ route, navigation }) {
   const { service } = route.params;
   const { t, pick } = useLang();
 
-  const imgUri = service.image ? `${API_BASE_IMG}${service.image}` : null;
+  const imgUri = getImageUri(service.image);
 
   return (
     <ScrollView style={styles.container}>
