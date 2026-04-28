@@ -11,7 +11,7 @@ import Users from "./pages/Users.jsx";
 function ProtectedRoute({ children }) {
   const { admin, loading } = useAuth();
   if (loading) return <div style={{ display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}><span className="spinner" /></div>;
-  return admin ? children : <Navigate to="/login" replace />;
+  return admin ? children : <Navigate to="/admin/login" replace />;
 }
 
 function PublicRoute({ children }) {
@@ -25,7 +25,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/admin/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route index element={<Dashboard />} />
             <Route path="services" element={<Services />} />
