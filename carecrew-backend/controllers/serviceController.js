@@ -1,4 +1,21 @@
 import Service from "../models/Service.js";
+import fs from "fs/promises";
+import { getCloudinary } from "../config/cloudinary.js";
+
+const uploadServiceImageToCloudinary = async (file) => {
+  if (!file?.path) return "";
+
+  const cloudinary = getCloudinary();
+  try {
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "carecrew/services",
+      resource_type: "image",
+    });
+    return result.secure_url || "";
+  } finally {
+    await fs.unlink(file.path).catch(() => {});
+  }
+};
 
 export const createService = async (req, res) => {
   try {
@@ -8,7 +25,8 @@ export const createService = async (req, res) => {
       return res.status(400).json({ message: "name, description, price, duration are required." });
     }
 
-    const image = req.file ? `/uploads/${req.file.filename}` : req.body.image || "";
+    const uploadedImageUrl = req.file ? await uploadServiceImageToCloudinary(req.file) : "";
+    const image = uploadedImageUrl || req.body.image || "";
 
     const service = await Service.create({
       name:          name.trim(),
@@ -29,7 +47,7 @@ export const createService = async (req, res) => {
 export const updateService = async (req, res) => {
   try {
     const updates = { ...req.body };
-    if (req.file) updates.image = `/uploads/${req.file.filename}`;
+    if (req.file) updates.image = await uploadServiceImageToCloudinary(req.file);
     if (updates.price)    updates.price    = Number(updates.price);
     if (updates.duration) updates.duration = Number(updates.duration);
 
