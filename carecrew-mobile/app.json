@@ -21,8 +21,16 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.carecrew.app"
+      "bundleIdentifier": "com.carecrew.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
-    "plugins": []
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "d14ae87d-17d1-4d83-b31b-a183c3de50bb"
+      }
+    }
   }
 }
