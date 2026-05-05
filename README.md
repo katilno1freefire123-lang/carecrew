@@ -1,4 +1,7 @@
 # CareCrew
+It is a app like urban company to where user can book a service and patner will accept the task.
+App(react native)+ Admin panel (React+ vite)
+
 CareCrew is a service booking platform with three apps:
 - `carecrew-mobile` - React Native (Expo) app for customers and professionals
 - `carecrew-admin` - React + Vite admin dashboard
