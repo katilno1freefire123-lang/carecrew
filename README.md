@@ -1,5 +1,5 @@
 # CareCrew
-It is a app like urban company to where user can book a service and patner will accept the task.
+It is a app like urban company in nepali and english language where user can book a service and patner will accept the task.
 App(react native)+ Admin panel (React+ vite)
 
 CareCrew is a service booking platform with three apps:
